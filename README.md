@@ -13,7 +13,8 @@ JavaScript 与 HTML 之间的交互是通过事件实现的。
 | 事件处理程序 |HTML事件处理程序|DOM0级事件处理程序| DOM2级事件处理程序 | IE事件处理程序 |
 | --- | --- | --- | --- | --- |
 | description |在html上绑定的与相应事件处理程序同名的 HTML 特性  | 通过JS指定事件处理程序方式，就是将一个函数赋值给一个事件处理程序属性 |这两个方法接受3个参数：要处理的事件名、作为事件处理程序的函数和一个布尔值。true，表示在捕获阶段调用事件处理程序；false，表示在冒泡阶段调用事件处理程序  | 这两个方法接受两个参数：事件处理程序名称与事件处理程序函数。由于IE8及更早版本只支持事件冒泡，所以通过attachEvent()添加的事件处理程序都会被添加到冒泡阶段 |
-| 能否添加多个事件处理程序 | 不可以 | 不可以 | 可以 | 可以 |
-| 绑定事件处理程序 | <input type="button" onclick="showMessage()"/>  | btn.onclick=function(){} | btn.addEventListener("click",handle,false) | btn.attachEvent("onclick",handle) |
+| 绑定事件处理程序 | \<input type="button" onclick="showMsg()"\/> | btn.onclick=function(){} | btn.addEventListener("click",handle,false) | btn.attachEvent("onclick",handle) |
 | 删除事件处理程序 | - | btn.onclick=null | btn.removeEventListener("click",handle,false)|btn.detachEvent("onclick",handle) |
 | this指向 | 所属元素的作用域内运行 | 所属元素的作用域内运行 | 所属元素的作用域内运行 | 在全局作用域中运行 |
+| 能否添加多个事件处理程序 | 不可以 | 不可以 | 可以 | 可以 |
+
