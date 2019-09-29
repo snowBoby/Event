@@ -78,7 +78,9 @@ DOM中的preventDefault()方法的作用相同）
 `*知识扩展*：Firefox 和 Opera 有一个特性，名叫“往返缓存”（back-forward cache，或 bfcache），可以在用户使用浏览器的“后退”和“前进”按钮时加快页面的转换速度。这个缓存中不仅保存着页面数据，还保存了 DOM 和 JavaScript 的状态；实际上是将整个页面都保存在了内存里。如果页面位于 bfcache 中，那么再次打开该页面时就不会触发 load 事件。`
 #### hashchange事件特有的事件对象属性：
 * oldURL：("onhashchange" in window) && (document.documentMode ===undefined || document.documentMode > 7)判断支不支持
-* newURL：支持 hashchange 事件的浏览器有 IE8+、Firefox 3.6+、Safari 5+、Chrome 和 Opera 10.6+。在这些浏览器中，只有 Firefox 6+、Chrome 和 Opera 支持 oldURL 和 newURL 属性。为此，最好是使用 location对象来确定当前的参数列表### 4.2焦点事件
+* newURL：支持 hashchange 事件的浏览器有 IE8+、Firefox 3.6+、Safari 5+、Chrome 和 Opera 10.6+。在这些浏览器中，只有 Firefox 6+、Chrome 和 Opera 支持 oldURL 和 newURL 属性。为此，最好是使用 location对象来确定当前的参数列表
+          
+### 4.2焦点事件
 利用这些事件并与 document.hasFocus()方法及document.activeElement 属性配合，可以知晓用户在页面上的行踪。
 
 * **blur**：在元素失去焦点时触发。这个事件**不会冒泡**；
