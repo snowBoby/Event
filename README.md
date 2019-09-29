@@ -55,6 +55,7 @@ DOM中的preventDefault()方法的作用相同）
 
 ### 4.1 UI 事件
 这个 event 对象没有任何附加信息，但在兼容 DOM 的浏览器中，event.target 属性的值会被设置为document。有两种方式：1、通过JS来指定事件处理程序；2、通过HTML在<body>元素中通过相应的特性来指定（因为在HTML中无法访问window元素）。根据“DOM2 级事件”规范，应该在 document 而非 window 上面触发 load 事件。但是，所有浏览器都在 window 上面实现了该事件，以确保向后兼容。
+ 
 * **load**：当页面完全加载后（包括所有图像、JavaScript 文件、CSS 文件等外部资源后）在 window 上面触发，当所有框架都加载完毕时在框架集上面触发，当图像加载完毕时在<img>元素上面触发（**新图像元素不一定要从添加到文档后才开始下载，只要设置了 src 属性就会开始下载，事件处理程序要在src之前绑定，new Image()创建的图片无法将其添加到 DOM 树中，可以做图片预加载，createElement可以添加DOM树上**），或者当嵌入的内容加载完毕时在<object>（ **<script>（IE<=8不支持script的onload）、<link>（只有IE和Opera支持）等，与图像不同，只有在设置了src 属性并将该元素添加到文档后，才会开始下载文件**）元素上面触发。
 * **unload**：当页面完全卸载后在 window 上面触发（**一般用于清除引用，以避免内存泄漏**），当所有框架都卸载后在框架集上面触发，或者当嵌入的内容卸载完毕后在<object>元素上面触发。
 * **resize**：当窗口或框架的大小变化时在 window 或框架上面触发。（**不要在这个事件的处理程序中加入大计算量的代码，因为这些代码有可能被频繁执行，从而导致浏览器反应明显变慢**）
@@ -62,6 +63,9 @@ DOM中的preventDefault()方法的作用相同）
 * **abort**：在用户停止下载过程时，如果嵌入的内容没有加载完，则在<object>元素上面触发。
 * **error**：当发生 JavaScript 错误时在 window 上面触发，当无法加载图像时在<img>元素上面触发，当无法加载嵌入内容时在<object>元素上面触发，或者当有一或多个框架无法加载时在框架集上面触发。
 * **select**：当用户选择文本框（<input>或<texterea>）中的一或多个字符时触发。
+
+非人防
+
 ### 4.2焦点事件
 利用这些事件并与 document.hasFocus()方法及document.activeElement 属性配合，可以知晓用户在页面上的行踪。
 * **blur**：在元素失去焦点时触发。这个事件**不会冒泡**；
@@ -79,7 +83,7 @@ DOM中的preventDefault()方法的作用相同）
 * **mousemove**：当鼠标首次移入元素内会触发，同时在其子元素移入移除都会触发。
 * **mouseover**：在鼠标移除该元素会触发，同时在其子元素移入移除都会触发。
 
-鼠标事件特有的事件对象属性：
+#### 鼠标事件特有的事件对象属性：
 * **clientX**：表示事件发生时鼠标指针在**视口**中的水平位置。
 * **clientY**：表示事件发生时鼠标指针在**视口**中的垂直位置。
 * **pageX**：表示事件发生时鼠标指针在**页面**中的水平位置。
@@ -89,10 +93,10 @@ DOM中的preventDefault()方法的作用相同）
 * **shiftKey/ctrlKey/altKey/metaKey(ie<9不支持metaKey)** ：修改键布尔值，虽然鼠标事件主要是使用鼠标来触发的，但在按下鼠标时键盘上的某些键的状态也可以影响到所要采取的操作。这些修改键就是 Shift、Ctrl、Alt 和 Meta（在 Windows 键盘中是 Windows 键，在mac中是 Cmd 键）
 * **relatedTarget/fromElement（ie<9的mouseover事件）/toElement（ie<9的mouseout事件）**：相关元素（**这个属性只对于 mouseover和mouseout事件才包含值；对于其他事件，这个属性的值是null**）。从当前元素转移到另外一个元素，当前元素或另外一个元素就是相关元素，要看是哪个事件类型。
 
-**mousedown** 和 **mouseup**事件，除了有以上事件对象属性之外，还有下面特殊属性：
+#### **mousedown** 和 **mouseup**事件，除了有以上事件对象属性之外，还有下面特殊属性：
 * **button**：0表示主鼠标按钮，1表示中间的鼠标按钮（鼠标滚轮按钮）2表示次鼠标按钮。
 
-**IE** 也通过下列属性为**鼠标事件**提供了更多信息:
+#### **IE** 也通过下列属性为**鼠标事件**提供了更多信息:
 * **offsetX**：相对于**目标元素**的水平位置。目标元素就是target点击元素本身。
 * **offsetY**：相对于**目标元素**的垂直位置。
 * **shiftLeft/ctrlLeft/altLeft**：布尔值，表示是否按下了 Shift/Ctrl/Alt 键。如果shiftLeft/ctrlLeft/altLeft的值为true，则对应shiftKey/ctrlKey/altKey的值也为 true。
@@ -111,3 +115,4 @@ mousemove 事件也会触发 mouseover 和 mouseout 事件。
 滚轮事件的事件对象属性除包含**鼠标事件**的所有标准信息外，mousewheel还包含一个特殊的 wheelDelta 属性，而DOMMouseScroll将滚轮信息保存在detail属性中：
 
 * wheelDelta：滚动的倍数。
+
