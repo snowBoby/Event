@@ -60,7 +60,6 @@ DOM中的preventDefault()方法的作用相同）
 ### 4.1UI 事件
 这个 event 对象没有任何附加信息，但在兼容 DOM 的浏览器中，event.target 属性的值会被设置为document。有两种方式：1、通过JS来指定事件处理程序；2、通过HTML在<body>元素中通过相应的特性来指定（因为在HTML中无法访问window元素）。根据“DOM2 级事件”规范，应该在 document 而非 window 上面触发 load 事件。但是，所有浏览器都在 window 上面实现了该事件，以确保向后兼容
 * **DOMContentLoaded**：在形成完整的 DOM 树之后就会触发。不理会图像、JS 文件、CSS 文件或其他资源是否已经下载完毕。
-* **load**：当页面完全加载后（包括所有图像、JavaScript 文件、CSS 文件等外部资源后）在 window 上面触发，当所有框架都加载完毕时在框架集上面触发，当图像加载完毕时在<img>元素上面触发（**新图像元素不一定要从添加到文档后才开始下载，只要设置了 src 属性就会开始下载，事件处理程序要在src之前绑定，new Image()创建的图片无法将其添加到 DOM 树中，可以做图片预加载，createElement可以添加DOM树上**），或者当嵌入的内容加载完毕时在<object>（ **<script>（IE<=8不支持script的onload）、<link>（只有IE和Opera支持）等，与图像不同，只有在设置了src 属性并将该元素添加到文档后，才会开始下载文件**）元素上面触发。
 * **pageshow**：在页面显示时触发，无论该页面是否来自 bfcache。在重新加载的页面中，pageshow 会在 load 事件触发后触发；另外要注意的是，虽然这个事件的目标是 document，但必须将其事件处理程序添加到 window。
 * **pagehide**：会在浏览器卸载页面的时候触发，而且是在unload 事件之前触发。与 pageshow 事件一样，pagehide 在 document 上面触发，但其事件处理程序必须要添加到 window 对象。
 * **beforeunload**：会在浏览器卸载页面之前触发，可以通过它来取消卸载并继续使用原有页面。离不离开当前页面控制器必须交给用户，出现弹窗让用户自己选择。为了显示这个弹出对话框，必须将 event.returnValue 的值设置为要显示给用户的字符串（对IE 及 Fiefox 而言），同时作为函数的值返回（对 Safari 和 Chrome 而言）
