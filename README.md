@@ -73,12 +73,12 @@ DOM中的preventDefault()方法的作用相同）
 * **select**：当用户选择文本框（<input>或<texterea>）中的一或多个字符时触发。
 * **readystatechange**：提供与文档或元素的加载状态有关的信息，支持readystatechange 事件的每个对象都有一个 readyState 属性，可能有以下5个值中的一个。uninitialized（未初始化，对象存在但尚未初始化）、loading（正在加载，对象正在加载数据）、loaded（加载完毕，对象加载数据完成）、interactive（交互，可以操作对象了，但还没有完全加载）、complete（完成，对象已经加载完毕）；可以用来确定外部的 JavaScript 和 CSS 文件是否已经加载完成，readyState 属性无论等于 "loaded" 还是"complete"都可以表示资源已经可用。
  
-#### pageshow和pagehide事件特有的事件对象属性：
-* **persisted**：如果页面被保存在了 bfcache 中，则这个属性的值为 true；否则，这个属性的值为 false；对于 pageshow事件，如果页面是从 bfcache 中加载的，那么 persisted 的值就是 true；对于 pagehide 事件，如果页面在卸载之后会被保存在 bfcache 中，那么 persisted 的值也会被设置为 true。因此，当第一次触发 pageshow 时，persisted 的值一定是 false，而在第一次触发 pagehide 时，persisted 就会变成 true（除非页面不会被保存在 bfcache 中）。
-`*知识扩展*：Firefox 和 Opera 有一个特性，名叫“往返缓存”（back-forward cache，或 bfcache），可以在用户使用浏览器的“后退”和“前进”按钮时加快页面的转换速度。这个缓存中不仅保存着页面数据，还保存了 DOM 和 JavaScript 的状态；实际上是将整个页面都保存在了内存里。如果页面位于 bfcache 中，那么再次打开该页面时就不会触发 load 事件。`
-#### hashchange事件特有的事件对象属性：
-* oldURL：("onhashchange" in window) && (document.documentMode ===undefined || document.documentMode > 7)判断支不支持
-* newURL：支持 hashchange 事件的浏览器有 IE8+、Firefox 3.6+、Safari 5+、Chrome 和 Opera 10.6+。在这些浏览器中，只有 Firefox 6+、Chrome 和 Opera 支持 oldURL 和 newURL 属性。为此，最好是使用 location对象来确定当前的参数列表
+  #### pageshow和pagehide事件特有的事件对象属性：
+  * **persisted**：如果页面被保存在了 bfcache 中，则这个属性的值为 true；否则，这个属性的值为 false；对于 pageshow事件，如果页面是从 bfcache 中加载的，那么 persisted 的值就是 true；对于 pagehide 事件，如果页面在卸载之后会被保存在 bfcache 中，那么 persisted 的值也会被设置为 true。因此，当第一次触发 pageshow 时，persisted 的值一定是 false，而在第一次触发 pagehide 时，persisted 就会变成 true（除非页面不会被保存在 bfcache 中）。
+  `*知识扩展*：Firefox 和 Opera 有一个特性，名叫“往返缓存”（back-forward cache，或 bfcache），可以在用户使用浏览器的“后退”和“前进”按钮时加快页面的转换速度。这个缓存中不仅保存着页面数据，还保存了 DOM 和 JavaScript 的状态；实际上是将整个页面都保存在了内存里。如果页面位于 bfcache 中，那么再次打开该页面时就不会触发 load 事件。`
+  #### hashchange事件特有的事件对象属性：
+  * oldURL：("onhashchange" in window) && (document.documentMode ===undefined || document.documentMode > 7)判断支不支持
+  * newURL：支持 hashchange 事件的浏览器有 IE8+、Firefox 3.6+、Safari 5+、Chrome 和 Opera 10.6+。在这些浏览器中，只有 Firefox 6+、Chrome 和 Opera 支持 oldURL 和 newURL 属性。为此，最好是使用 location对象来确定当前的参数列表
           
 ### 4.2焦点事件
 利用这些事件并与 document.hasFocus()方法及document.activeElement 属性配合，可以知晓用户在页面上的行踪。
