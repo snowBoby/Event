@@ -245,7 +245,7 @@ IE9+唯一支持复合事件的浏览器。要确定浏览器是否支持复合�
 除了支持鼠标、键盘、更改和 HTML 事件之外，所有表单字段都支持下列 3 个事件：
 * blur：当前字段失去焦点时触发。
 * focus：当前字段获得焦点时触发。
-* change：对于<input>和<textarea>元素，在它们失去焦点且 value 值改变时触发；对于<select>元素，在其选项改变时触发。
+* change：对于input和textarea元素，在它们失去焦点且 value 值改变时触发；对于select元素，在其选项改变时触发。
 `input（size属性表示显示的字符数）和textarea（rows、cols文本框的字符行列数）文本框都支持 select()和setSelectionRange()方法，select()这个方法用于选择文本框中的所有文本。setSelectionRange(要选择的第一个字符的索引,要选择的最后一个字符的索引)选择部分文本，但是ie<9以下要通过 createTextRange()先在文本框上创建一个范围，在设置collapse()将范围折叠到文本框的开始位置，再使用 moveStart()和 moveEnd()这两个范围方法将范围移动到位，最后一步，就是使用范围的 select()方法选择文本`
 
 ```
