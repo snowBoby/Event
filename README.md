@@ -100,24 +100,24 @@ DOM中的preventDefault()方法的作用相同）
 * **mouseover**：在鼠标移除该元素会触发，同时在其子元素移入移除都会触发。
 * **contextmenu**（h5事件）：点击非主鼠标按钮触发。可以自定义上下文菜单，可取消默认行为。
 
-#### 鼠标事件特有的事件对象属性：
+  #### 鼠标事件特有的事件对象属性：
 
-* **clientX**：表示事件发生时鼠标指针在**视口**中的水平位置。
-* **clientY**：表示事件发生时鼠标指针在**视口**中的垂直位置。
-* **pageX**：表示事件发生时鼠标指针在**页面**中的水平位置。
-* **pageY**：表示事件发生时鼠标指针在**页面**中的垂直位置。
-* **screenX**：相对于**整个电脑屏幕**的水平位置。
-* **screenY**：相对于**整个电脑屏幕**的垂直位置。
-* **shiftKey/ctrlKey/altKey/metaKey(ie<9不支持metaKey)** ：修改键布尔值，虽然鼠标事件主要是使用鼠标来触发的，但在按下鼠标时键盘上的某些键的状态也可以影响到所要采取的操作。这些修改键就是 Shift、Ctrl、Alt 和 Meta（在 Windows 键盘中是 Windows 键，在mac中是 Cmd 键）
-* **relatedTarget/fromElement（ie<9的mouseover事件）/toElement（ie<9的mouseout事件）**：相关元素（**这个属性只对于 mouseover和mouseout事件才包含值；对于其他事件，这个属性的值是null**）。从当前元素转移到另外一个元素，当前元素或另外一个元素就是相关元素，要看是哪个事件类型。
+  * **clientX**：表示事件发生时鼠标指针在**视口**中的水平位置。
+  * **clientY**：表示事件发生时鼠标指针在**视口**中的垂直位置。
+  * **pageX**：表示事件发生时鼠标指针在**页面**中的水平位置。
+  * **pageY**：表示事件发生时鼠标指针在**页面**中的垂直位置。
+  * **screenX**：相对于**整个电脑屏幕**的水平位置。
+  * **screenY**：相对于**整个电脑屏幕**的垂直位置。
+  * **shiftKey/ctrlKey/altKey/metaKey(ie<9不支持metaKey)** ：修改键布尔值，虽然鼠标事件主要是使用鼠标来触发的，但在按下鼠标时键盘上的某些键的状态也可以影响到所要采取的操作。这些修改键就是 Shift、Ctrl、Alt 和 Meta（在 Windows 键盘中是 Windows 键，在mac中是 Cmd 键）
+  * **relatedTarget/fromElement（ie<9的mouseover事件）/toElement（ie<9的mouseout事件）**：相关元素（**这个属性只对于 mouseover和mouseout事件才包含值；对于其他事件，这个属性的值是null**）。从当前元素转移到另外一个元素，当前元素或另外一个元素就是相关元素，要看是哪个事件类型。
 
-#### **mousedown** 和 **mouseup**事件，除了有以上事件对象属性之外，还有下面特殊属性：
-* **button**：0表示主鼠标按钮，1表示中间的鼠标按钮（鼠标滚轮按钮）2表示次鼠标按钮。
+  #### **mousedown** 和 **mouseup**事件，除了有以上事件对象属性之外，还有下面特殊属性：
+  * **button**：0表示主鼠标按钮，1表示中间的鼠标按钮（鼠标滚轮按钮）2表示次鼠标按钮。
 
-#### **IE** 也通过下列属性为**鼠标事件**提供了更多信息:
-* **offsetX**：相对于**目标元素**的水平位置。目标元素就是target点击元素本身。
-* **offsetY**：相对于**目标元素**的垂直位置。
-* **shiftLeft/ctrlLeft/altLeft**：布尔值，表示是否按下了 Shift/Ctrl/Alt 键。如果shiftLeft/ctrlLeft/altLeft的值为true，则对应shiftKey/ctrlKey/altKey的值也为 true。
+  #### **IE** 也通过下列属性为**鼠标事件**提供了更多信息:
+  * **offsetX**：相对于**目标元素**的水平位置。目标元素就是target点击元素本身。
+  * **offsetY**：相对于**目标元素**的垂直位置。
+  * **shiftLeft/ctrlLeft/altLeft**：布尔值，表示是否按下了 Shift/Ctrl/Alt 键。如果shiftLeft/ctrlLeft/altLeft的值为true，则对应shiftKey/ctrlKey/altKey的值也为 true。
 
 
 `*注意*：1、在页面没有滚动的情况下，pageX 和 pageY 的值与 clientX 和 clientY 的值相等；IE8 及更早版本不支持事件对象上的页面坐标，但可以通过计算得到 pageX = event.clientX + (document.body.scrollLeft ||
@@ -132,44 +132,44 @@ mousemove 事件也会触发 mouseover 和 mouseout 事件。
 
 * **mousewheel/DOMMouseScroll（Firefox）**：这个事件跟踪鼠标滚轮，类似于 Mac 的触控板。
 
-滚轮事件的事件对象属性除包含**鼠标事件**的所有标准信息外，mousewheel还包含一个特殊的 wheelDelta 属性，而DOMMouseScroll将滚轮信息保存在detail属性中：
+  滚轮事件的事件对象属性除包含**鼠标事件**的所有标准信息外，mousewheel还包含一个特殊的 wheelDelta 属性，而DOMMouseScroll将滚轮信息保存在detail属性中：
 
-* wheelDelta：滚动的倍数。
+  * wheelDelta：滚动的倍数。
 
 ### 4.5键盘事件
 
 * **keydown**：当用户按下键盘上的任意键时触发，而且如果按住不放的话，会重复触发此事件。在文本框发生变化之前被触发的；
 * **keypress**：当用户按下键盘上的字符键（插入或删除字符）时触发，而且如果按住不放的话，会重复触发此事件。在文本框发生变化之前被触发的；按下 Esc 键也会触发这个事件。Safari 3.1 之前的版本也会在用户按下非字符键时触发 keypress事件。
 * **keyup**：当用户释放键盘上的键时触发。在文本框已经发生变化之后被触发的;
-#### 键盘事件特有的事件对象属性：
-由于存在跨浏览器问题，因此不推荐使用 key、keyIdentifier 或 char，location或keyLocation。
+  #### 键盘事件特有的事件对象属性：
+  由于存在跨浏览器问题，因此不推荐使用 key、keyIdentifier 或 char，location或keyLocation。
 
-* **shiftKey/ctrlKey/altKey/metaKey(ie<9不支持metaKey)** ：键盘事件与鼠标事件一样，都支持相同的修改键；
-* **keyCode**：在发生 keydown 和 keyup 事件时，keyCode 属性的值与 ASCII 码中对应小写字母或数字的编码相同；
-* **charCode**：这个属性只有在发生keypress 事件时才包含值，按下的那个键所代表字符的 ASCII 编码。此时的 keyCode通常等于0或者也可能等于所按键的键码；在取得了字符编码之后，就可以使用 String.fromCharCode()将其转换成实际的字符
-* **key**：为了取代 keyCode，值就是相应的文本字符（如“k”或“M”）；在按下非字符键时， key 的值是相应键的名（如“Shift”或“Down”）。
-* **char**：在按下字符键时的行为与 key 相同，但在按下非字符键时值为 null。
-* **keyIdentifier**：在按下非字符键（例如 Shift）的情况下与 key 的值相同，返回一个格式类似“U+0000”的字符串，表示 Unicode 值
-* **location/keyLocation**（Safari 和 Chrome）：这是一个数值，表示按下了什么位置上的键：0 表示默认键盘，1 表示左侧位置（例如左位的 Alt 键），2 表示右侧位置（例如右侧的 Shift 键），3 表示数字小键盘，4 表示移动设备键盘（也就是虚拟键盘），5 表示手柄（如任天堂 Wii 控制器）。但即有 bug——值始终是 0，除非按下
-了数字键盘（此时，值 为 3）；否则，不会是 1、2、4、5
+  * **shiftKey/ctrlKey/altKey/metaKey(ie<9不支持metaKey)** ：键盘事件与鼠标事件一样，都支持相同的修改键；
+  * **keyCode**：在发生 keydown 和 keyup 事件时，keyCode 属性的值与 ASCII 码中对应小写字母或数字的编码相同；
+  * **charCode**：这个属性只有在发生keypress 事件时才包含值，按下的那个键所代表字符的 ASCII 编码。此时的 keyCode通常等于0或者也可能等于所按键的键码；在取得了字符编码之后，就可以使用 String.fromCharCode()将其转换成实际的字符
+  * **key**：为了取代 keyCode，值就是相应的文本字符（如“k”或“M”）；在按下非字符键时， key 的值是相应键的名（如“Shift”或“Down”）。
+  * **char**：在按下字符键时的行为与 key 相同，但在按下非字符键时值为 null。
+  * **keyIdentifier**：在按下非字符键（例如 Shift）的情况下与 key 的值相同，返回一个格式类似“U+0000”的字符串，表示 Unicode 值
+  * **location/keyLocation**（Safari 和 Chrome）：这是一个数值，表示按下了什么位置上的键：0 表示默认键盘，1 表示左侧位置（例如左位的 Alt 键），2 表示右侧位置（例如右侧的 Shift 键），3 表示数字小键盘，4 表示移动设备键盘（也就是虚拟键盘），5 表示手柄（如任天堂 Wii 控制器）。但即有 bug——值始终是 0，除非按下
+  了数字键盘（此时，值 为 3）；否则，不会是 1、2、4、5
 
 ### 4.6文本事件
 
 * **textInput**：在文本插入文本框之前会触发 textInput 事件。keypress->textInput，它俩区别之一就是任何可以获得焦点的元素都可以触发 keypress 事件，但只有可编辑区域才能触发 textInput事件。区别之二是 textInput 事件只会在用户按下能够输入实际字符的键时才会被触发，而 keypress事件则在按下那些能够影响文本显示的键时也会触发（例如退格键）。
 
-#### 文本事件特有的事件对象属性：
+  #### 文本事件特有的事件对象属性：
 
-* **data**：用户输入的字符（而非字符编码）。
-* **inputMethod**：只有IE支持，表示把文本输入到文本框中的方式。
+  * **data**：用户输入的字符（而非字符编码）。
+  * **inputMethod**：只有IE支持，表示把文本输入到文本框中的方式。
 
 ### 4.7复合事件
 IE9+唯一支持复合事件的浏览器。要确定浏览器是否支持复合事件，可以使用document.implementation.hasFeature("CompositionEvent", "3.0")
 * **compositionstart**：在 IME 的文本复合系统打开时触发，表示要开始输入了。
 * **compositionupdate**：在向输入字段中插入新字符时触发。
 * **compositionend**：在 IME 的文本复合系统关闭时触发，表示返回正常键盘输入状态。
-#### 复合事件特有的事件对象属性：
+  #### 复合事件特有的事件对象属性：
 
-* **data**：如果在 compositionstart 事件发生时访问，包含正在编辑的文本（例如，已经选中的需要马上替换的文本）；如果在 compositionupdate 事件发生时访问，包含正插入的新字符；如果在 compositionend 事件发生时访问，包含此次输入会话中插入的所有字符
+  * **data**：如果在 compositionstart 事件发生时访问，包含正在编辑的文本（例如，已经选中的需要马上替换的文本）；如果在 compositionupdate 事件发生时访问，包含正插入的新字符；如果在 compositionend 事件发生时访问，包含此次输入会话中插入的所有字符
 ### 4.8变动事件
 * **DOMSubtreeModified**：在 DOM 结构中发生任何变化时触发。这个事件在其他任何事件触发后都会触发。
 * **DOMNodeInserted**：在一个节点作为子节点被插入到另一个节点中时触发。在这个事件触发时，节点已经被插入到了新的父节点中。**会冒泡**
@@ -201,22 +201,22 @@ IE9+唯一支持复合事件的浏览器。要确定浏览器是否支持复合�
 * **touchmove**：当手指在屏幕上滑动时连续地触发。在这个事件发生期间，调用preventDefault()可以阻止滚动。
 * **touchend**：当手指从屏幕上移开时触发。注意，在 touchend 事件发生时，touches集合中就没有任何 Touch 对象了，因为不存在活动的触摸操作；此时，就必须转而使用 changeTouchs集合。
 * **touchcancel**：当系统停止跟踪触摸时触发。关于此事件的确切触发时间，文档中没有明确说明。
-#### 触摸事件特有的事件对象属性：
-每个触摸事件的event对象都提供了在鼠标事件中常见的属性：bubbles、cancelable、view、clientX、clientY、screenX、screenY、detail、altKey、shiftKey、ctrlKey 和 metaKey。还包含下列三个用于跟踪触摸的属性：
+  #### 触摸事件特有的事件对象属性：
+  每个触摸事件的event对象都提供了在鼠标事件中常见的属性：bubbles、cancelable、view、clientX、clientY、screenX、screenY、detail、altKey、shiftKey、ctrlKey 和 metaKey。还包含下列三个用于跟踪触摸的属性：
 
-* touches：表示当前跟踪的触摸操作的 Touch 对象的数组。
-* targetTouchs：特定于事件目标的 Touch 对象的数组。
-* changeTouches：表示自上次触摸以来发生了什么改变的 Touch 对象的数组。
-每个 Touch 对象包含下列属性：
+  * touches：表示当前跟踪的触摸操作的 Touch 对象的数组。
+  * targetTouchs：特定于事件目标的 Touch 对象的数组。
+  * changeTouches：表示自上次触摸以来发生了什么改变的 Touch 对象的数组。
+  每个 Touch 对象包含下列属性：
 
-    * clientX：触摸目标在视口中的 x 坐标。
-    * clientY：触摸目标在视口中的 y 坐标。
-    * identifier：标识触摸的唯一 ID。
-    * pageX：触摸目标在页面中的 x 坐标。
-    * pageY：触摸目标在页面中的 y 坐标。
-    * screenX：触摸目标在屏幕中的 x 坐标。
-    * screenY：触摸目标在屏幕中的 y 坐标。
-    * target：触摸的 DOM 节点目标。
+      * clientX：触摸目标在视口中的 x 坐标。
+      * clientY：触摸目标在视口中的 y 坐标。
+      * identifier：标识触摸的唯一 ID。
+      * pageX：触摸目标在页面中的 x 坐标。
+      * pageY：触摸目标在页面中的 y 坐标。
+      * screenX：触摸目标在屏幕中的 x 坐标。
+      * screenY：触摸目标在屏幕中的 y 坐标。
+      * target：触摸的 DOM 节点目标。
 
     
 `补充：在触摸屏幕上的元素时，这些事件（包括鼠标事件）发生的顺序如下：(1) touchstart
@@ -232,11 +232,11 @@ IE9+唯一支持复合事件的浏览器。要确定浏览器是否支持复合�
 * gesturestart：当一个手指已经按在屏幕上而另一个手指又触摸屏幕时触发。
 * gesturechange：当触摸屏幕的任何一个手指的位置发生变化时触发。
 * gestureend：当任何一个手指从屏幕上面移开时触发。
-#### 手势事件特有的事件对象属性：
-与触摸事件一样，bubbles、cancelable、view、clientX、clientY、screenX、screenY、detail、altKey、shiftKey、ctrlKey 和 metaKey。还包含两个额外的属性：
+  #### 手势事件特有的事件对象属性：
+  与触摸事件一样，bubbles、cancelable、view、clientX、clientY、screenX、screenY、detail、altKey、shiftKey、ctrlKey 和 metaKey。还包含两个额外的属性：
 
-* rotation：表示手指变化引起的旋转角度，负值表示逆时针旋转，正值表示顺时针旋转（该值从 0 开始）。
-* scale：表示两个手指间距离的变化情况（例如向内收缩会缩短距离）；这个值从 1 开始，并随距离拉大而增长，随距离缩短而减小。
+  * rotation：表示手指变化引起的旋转角度，负值表示逆时针旋转，正值表示顺时针旋转（该值从 0 开始）。
+  * scale：表示两个手指间距离的变化情况（例如向内收缩会缩短距离）；这个值从 1 开始，并随距离拉大而增长，随距离缩短而减小。
 
 ## 5内存和性能
 在 JavaScript 中，添加到页面上的事件处理程序数量将直接关系到页面的整体运行性能。导致这一问题的原因是多方面的。首先，每个函数都是对象，都会占用内存；内存中的对象越多，性能就越差。其次，必须事先指定所有事件处理程序而导致的 DOM 访问次数，会延迟整个页面的交互就绪时间。方案一：对“事件处理程序过多”问题的解决方案就是**事件委托**。所有用到按钮的事件（click、mousedown、mouseup、keydown、keyup 和 keypress）都适合采用事件委托技术。虽然 mouseover 和 mouseout 事件也冒泡，但要适当处理它们并不容易，而且经常需要计算元素的位置。（因为当鼠标从一个元素移到其子节点时，或者当鼠标移出该元素时，都会触发 mouseout 事件。）如果可行的话，也可以考虑为 document 对象添加一个事件处理程序。这样好处：
