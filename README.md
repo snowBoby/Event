@@ -56,7 +56,7 @@ DOM中的preventDefault()方法的作用相同）
 * **设备事件**：可以让开发人员确定智能手机和平板电脑的用户在怎样使用设备。
 * **触摸事件**：会在用户手指放在屏幕上面时、在屏幕上滑动时或从屏幕上移开时触发。
 * **手势事件**：当两个手指触摸屏幕时就会产生手势，手势通常会改变显示项的大小，或者旋转显示项。gesturestart->touchstart,gestureend->touchend
-* **表单事件**：focus、blur、change
+* **表单事件**：除了支持鼠标、键盘、更改和 HTML 事件之外，所有表单字段都支持focus、blur、change
 
 ### 4.1UI 事件
 这个 event 对象没有任何附加信息，但在兼容 DOM 的浏览器中，event.target 属性的值会被设置为document。有两种方式：1、通过JS来指定事件处理程序；2、通过HTML在<body>元素中通过相应的特性来指定（因为在HTML中无法访问window元素）。根据“DOM2 级事件”规范，应该在 document 而非 window 上面触发 load 事件。但是，所有浏览器都在 window 上面实现了该事件，以确保向后兼容
@@ -241,19 +241,20 @@ IE9+唯一支持复合事件的浏览器。要确定浏览器是否支持复合�
   * rotation：表示手指变化引起的旋转角度，负值表示逆时针旋转，正值表示顺时针旋转（该值从 0 开始）。
   * scale：表示两个手指间距离的变化情况（例如向内收缩会缩短距离）；这个值从 1 开始，并随距离拉大而增长，随距离缩短而减小。
   
-### 表单事件
+### 4.12表单事件
 除了支持鼠标、键盘、更改和 HTML 事件之外，所有表单字段都支持下列 3 个事件：
 * blur：当前字段失去焦点时触发。
 * focus：当前字段获得焦点时触发。
 * change：对于input和textarea元素，在它们失去焦点且 value 值改变时触发；对于select元素，在其选项改变时触发。
+* select：与 select()方法对应的，是一个 select 事件。在选择了文本框中的文本时，就会触发 select事件。在 IE9+、Opera、Firefox、Chrome
+和 Safari 中，只有用户选择了文本（而且要释放鼠标），才会触发 select 事件。而在 IE8 及更早版本中，只要用户选择了一个字母（不必释放鼠标），就会触发 select 事件。提供俩个属性：selectionStart 和 selectionEnd（选择文本的偏移量）。但是ie9之前不支持，可以通过document.selection 对象，其中保存着用户在整个文档范围内选择的文本信息。如下代码块兼容写法：
 `input（size属性表示显示的字符数）和textarea（rows、cols文本框的字符行列数）文本框都支持 select()和setSelectionRange()方法，select()这个方法用于选择文本框中的所有文本。setSelectionRange(要选择的第一个字符的索引,要选择的最后一个字符的索引)选择部分文本，但是ie<9以下要通过 createTextRange()先在文本框上创建一个范围，在设置collapse()将范围折叠到文本框的开始位置，再使用 moveStart()和 moveEnd()这两个范围方法将范围移动到位，最后一步，就是使用范围的 select()方法选择文本`
 
 ```
 //跨浏览器取得选择的文本
 function getSelectedText(textbox){
  if (typeof textbox.selectionStart == "number"){
-   return textbox.value.substring(textbox.selectionStart,
-   textbox.selectionEnd);
+   return textbox.value.substring(textbox.selectionStart,textbox.selectionEnd);
  } else if (document.selection){
    return document.selection.createRange().text;
  }
