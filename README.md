@@ -232,24 +232,31 @@ IE9+唯一支持复合事件的浏览器。要确定浏览器是否支持复合�
 桌面版 Firefox 6+和 Chrome 也支持触摸事件`
 ### 4.11手势事件
 只有两个手指都触摸到事件的接收容器时才会触发这些事件。这些事件都冒泡。当一个手指放在屏幕上时，会触发 touchstart 事件。如果另一个手指又放在了屏幕上，则会先触发 gesturestart 事件，随后触发基于该手指的 touchstart事件。如果一个或两个手指在屏幕上滑动，将会触发 gesturechange 事件。但只要有一个手指移开，就会触发 gestureend 事件，紧接着又会触发基于该手指的 touchend 事件。
-* gesturestart：当一个手指已经按在屏幕上而另一个手指又触摸屏幕时触发。
-* gesturechange：当触摸屏幕的任何一个手指的位置发生变化时触发。
-* gestureend：当任何一个手指从屏幕上面移开时触发。
+* **gesturestart**：当一个手指已经按在屏幕上而另一个手指又触摸屏幕时触发。
+* **gesturechange**：当触摸屏幕的任何一个手指的位置发生变化时触发。
+* **gestureend**：当任何一个手指从屏幕上面移开时触发。
   #### 手势事件特有的事件对象属性：
   与触摸事件一样，bubbles、cancelable、view、clientX、clientY、screenX、screenY、detail、altKey、shiftKey、ctrlKey 和 metaKey。还包含两个额外的属性：
 
-  * rotation：表示手指变化引起的旋转角度，负值表示逆时针旋转，正值表示顺时针旋转（该值从 0 开始）。
-  * scale：表示两个手指间距离的变化情况（例如向内收缩会缩短距离）；这个值从 1 开始，并随距离拉大而增长，随距离缩短而减小。
+  * **rotation**：表示手指变化引起的旋转角度，负值表示逆时针旋转，正值表示顺时针旋转（该值从 0 开始）。
+  * **scale**：表示两个手指间距离的变化情况（例如向内收缩会缩短距离）；这个值从 1 开始，并随距离拉大而增长，随距离缩短而减小。
   
 ### 4.12表单事件
-除了支持鼠标、键盘、更改和 HTML 事件之外，所有表单字段都支持下列 3 个事件：
-* blur：当前字段失去焦点时触发。
-* focus：当前字段获得焦点时触发。
-* change：对于input和textarea元素，在它们失去焦点且 value 值改变时触发；对于select元素，在其选项改变时触发。
-* select：与 select()方法对应的，是一个 select 事件。在选择了文本框中的文本时，就会触发 select事件。在 IE9+、Opera、Firefox、Chrome
+除了支持鼠标、键盘、更改和 HTML 事件之外，所有表单字段都支持下列前 3 个事件：
+* **blur**：当前字段失去焦点时触发。
+* **focus**：当前字段获得焦点时触发。
+* **change**：对于input和textarea元素，在它们失去焦点且 value 值改变时触发；对于select元素，在其选项改变时触发。
+* **select**：与 select()方法对应的，是一个 select 事件。在选择了文本框中的文本时，就会触发 select事件。在 IE9+、Opera、Firefox、Chrome
 和 Safari 中，只有用户选择了文本（而且要释放鼠标），才会触发 select 事件。而在 IE8 及更早版本中，只要用户选择了一个字母（不必释放鼠标），就会触发 select 事件。提供俩个属性：selectionStart 和 selectionEnd（选择文本的偏移量）。但是ie9之前不支持，可以通过document.selection 对象，其中保存着用户在整个文档范围内选择的文本信息。如下代码块兼容写法：
 `input（size属性表示显示的字符数）和textarea（rows、cols文本框的字符行列数）文本框都支持 select()和setSelectionRange()方法，select()这个方法用于选择文本框中的所有文本。setSelectionRange(要选择的第一个字符的索引,要选择的最后一个字符的索引)选择部分文本，但是ie<9以下要通过 createTextRange()先在文本框上创建一个范围，在设置collapse()将范围折叠到文本框的开始位置，再使用 moveStart()和 moveEnd()这两个范围方法将范围移动到位，最后一步，就是使用范围的 select()方法选择文本`
-
+* **beforecopy**：在发生复制操作前触发。
+* **copy**：在发生复制操作时触发。
+* **beforecut**：在发生剪切操作前触发。
+* **cut**：在发生剪切操作时触发。
+* **beforepaste**：在发生粘贴操作前触发。
+* **paste**：在发生粘贴操作时触发。取消默认事件就不会粘贴了，上面剪切事件也是如此。以上6个为剪切事件，特有的事件对象的属性如下：
+   * **clipboardData**：有三个方法：getData()、setData()和 clearData()。其中，getData()用于从剪贴板中取得数据，它接受一个参数，即要取得的数据的格式。在 IE 中，有两种数据格式："text"和"URL"。在 Firefox、Safari 和 Chrome 中，这个参数是一种 MIME 类型；不过，可以用"text"代表
+"text/plain"。类似地，setData()方法的第一个参数也是数据类型，第二个参数是要放在剪贴板中的文本。但是，与getData()方法不同的是，Safari 和 Chrome 的 setData()方法不能识别"text"类型。这两个浏览器在成功将文本放到剪贴板中后，都会返回 true；否则，返回 false。
 ```
 //跨浏览器取得选择的文本
 function getSelectedText(textbox){
@@ -392,5 +399,45 @@ var EventUtil = {
         return event.keyCode;
      }
  },
+ //获取剪切板数据
+ getClipboardText: function(event){
+    var clipboardData = (event.clipboardData || window.clipboardData);
+    return clipboardData.getData("text");
+ }, 
+ //设置剪切板数据
+ setClipboardText: function(event, value){
+    if (event.clipboardData){
+      return event.clipboardData.setData("text/plain", value); 
+    } else if (window.clipboardData){
+      return window.clipboardData.setData("text", value);
+    }
+ }, 
 }; 
+功能函数：
+//屏蔽非数值字符但不屏蔽那些也会触发 keypress 事件的基本按键
+EventUtil.addHandler(textbox, "keypress", function(event){
+   event = EventUtil.getEvent(event);
+   var target = EventUtil.getTarget(event);
+   var charCode = EventUtil.getCharCode(event);
+   if (!/\d/.test(String.fromCharCode(charCode)) && charCode > 9  &&
+      !event.ctrlKey){ //在除 IE 之外的所有浏览器中，前面的代码也会屏蔽 Ctrl+C、Ctrl+V，以及其他使用 Ctrl 的组合键。因此，最后还要添加一个检测条件，以确保用户没有按下 Ctrl 键.虽然理论上只应该在用户按下字符键时才触发 keypress 事件，但有些浏览器也会对其他键触发此事件。Firefox 和 Safari（3.1 版本以前）会对向上键、向下键、退格键和删除键触发 keypress 事件；Safari 3.1 及更新版本则不会对这些键触发 keypress 事件。这意味着，仅考虑到屏蔽不是数值的字符还不够，还要避免屏蔽这些极为常用和必要的键。所幸的是，要检测这些键并不困难。在 Firefox 中，所有由非字符键触发的 keypress 事件对应的字符编码为 0，而在 Safari 3 以前的版本中，对应的字符编码全部为 8。为了让代码更通用，只要不屏蔽那些字符编码小于 10 的键即可。
+      EventUtil.preventDefault(event);//屏蔽按键
+   }
+}); 
+//自动切换焦点
+function tabForward(event){
+   event = EventUtil.getEvent(event);
+   var target = EventUtil.getTarget(event);
+   if (target.value.length == target.maxLength){
+      var form = target.form;
+      for (var i=0, len=form.elements.length; i < len; i++) {
+         if (form.elements[i] == target) {
+            if (form.elements[i+1]){
+               form.elements[i+1].focus();
+            }
+            return;
+         }
+      }
+   }
+ } 
 ```
