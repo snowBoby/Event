@@ -57,6 +57,7 @@ DOM中的preventDefault()方法的作用相同）
 * **触摸事件**：会在用户手指放在屏幕上面时、在屏幕上滑动时或从屏幕上移开时触发。
 * **手势事件**：当两个手指触摸屏幕时就会产生手势，手势通常会改变显示项的大小，或者旋转显示项。gesturestart->touchstart,gestureend->touchend
 * **表单事件**：除了支持鼠标、键盘、更改和 HTML 事件之外，所有表单字段都支持focus、blur、change
+* **拖放事件**：拖动某元素时，在目标元素（被拖动的元素）上将依次触发dragstart->drag->dragend，当某个元素被拖动到一个有效的放置目标上时，在目标元素上将依次触发dragenter->dragover->dragleave/drop
 
 ### 4.1UI 事件
 这个 event 对象没有任何附加信息，但在兼容 DOM 的浏览器中，event.target 属性的值会被设置为document。有两种方式：1、通过JS来指定事件处理程序；2、通过HTML在<body>元素中通过相应的特性来指定（因为在HTML中无法访问window元素）。根据“DOM2 级事件”规范，应该在 document 而非 window 上面触发 load 事件。但是，所有浏览器都在 window 上面实现了该事件，以确保向后兼容
@@ -280,6 +281,22 @@ function selectText(textbox, startIndex, stopIndex){
   textbox.focus();
 }
 ```
+### 4.13拖放事件
+默认情况下，图像、链接和文本是可以拖动的，对于其他元素可以设置draggable 属性。在拖动元素经过某些无效放置目标时，可以看到一种特殊的光标（圆环中有一条反斜线），表示不能放置。虽然所有元素都支持放置目标事件，但这些元素默认是不允许放置的。如果拖动元素经过不允许放置的元素，无论用户如何操作，都不会发生 drop 事件。不过，你可以把任何元素变成有效的放置目标，方法是组织 dragenter 和 dragover 事件的默认行为。这样当拖动着元素移动到放置目标上时，光标变成了允许放置的符号。当然，释放鼠标也会触发 drop 事件。在 Firefox 3.5+中，放置事件的默认行为是打开被放到放置目标上的 URL。换句话说，如果是把图像拖放到放置目标上，页面就会转向图像文件；而如果是把文本拖放到放置目标上，则会导致无效 URL错误。因此，为了让 Firefox 支持正常的拖放，还要取消 drop 事件的默认行为
+* **dragstart**：按下鼠标键并开始移动鼠标时，会在被拖放的元素上触发 dragstart 事件。
+* **drag**：触发 dragstart 事件后，随即会触发 drag 事件，而且在元素被拖动期间会持续触发该事件。这个事件与 mousemove 事件相似，在鼠标移动过程中，mousemove 事件也会持续发生。
+* **dragend**：当拖动停止时（无论是把元素放到了有效的放置目标，还是放到了无效的放置目标上），会触发 dragend 事件。
+* **dragenter**：只要有元素被拖动到放置目标上，就会触发 dragenter 事件（类似于 mouseover 事件）。
+* **dragover**：紧随其后的是 dragover 事件，而且在被拖动的元素还在放置目标的范围内移动时，就会持续触发该事件。
+* **dragleave**：如果元素被拖出了放置目标，dragover 事件不再发生，但会触发 dragleave 事件（类似于 mouseout事件）。
+* **drop**：如果元素被放到了放置目标中，则会触发 drop 事件。特有的事件对象的属性如下：
+   * **dataTransfer**：两个主要方法：getData()和 setData()。getData()可以取得由 setData()保存的值。他俩的第一个参数为MIME类型，考虑到向后兼容，HTML5 也支持"text"和"URL"，但这两种类型会被映射为"text/plain"和"text/uri-list"，保存在 dataTransfer 对象中的数据只能在 drop事件处理程序中读取。如果在 ondrop 处理程序中没有读到数据，那就是 dataTransfer 对象已经被销毁，数据也丢失了。将数据保存为文本和保存为 URL 是有区别的。如果将数据保存为文本格式，那么数据不会得到任何特殊处理。而如果将数据保存为 URL，浏览器会将其当成网页中的链接。换句话说，如果你把它放置到另一个浏览器窗口中，浏览器就会打开该 URL。
+      * dropEffect：可以知道被拖动的元素能够执行哪种放置行为。必须在 ondragenter 事件处理程序中针对放置目标来设置它。"none"：不能把拖动的元素放在这里。这是除文本框之外所有元素的默认值。"move"：应该把拖动的元素移动到放置目标。"copy"：应该把拖动的元素复制到放置目标。"link"：表示放置目标会打开拖动的元素（但拖动的元素必须是一个链接，有 URL）。dropEffect 属性只有搭配 effectAllowed 属性才有用。
+      * effectAllowed：表示允许拖动元素的哪种 dropEffect。"uninitialized"：没有给被拖动的元素设置任何放置行为。"none"：被拖动的元素不能有任何行为。"copy"：只允许值为"copy"的 dropEffect。"link"：只允许值为"link"的 dropEffect。 "move"：只允许值为"move"的 dropEffect。"copyLink"：允许值为"copy"和"link"的 dropEffect。"copyMove"：允许值为"copy"和"move"的 dropEffect。"linkMove"：允许值为"link"和"move"的 dropEffect。"all"：允许任意 dropEffect。必须在 ondragstart 事件处理程序中设置 effectAllowed 属性。
+      * addElement(element)：为拖动操作添加一个元素。添加这个元素只影响数据（即增加作为拖动源而响应回调的对象），不会影响拖动操作时页面元素的外观。
+      * clearData(format)：清除以特定格式保存的数据。
+      * setDragImage(element, x, y)：指定一幅图像，当拖动发生时，显示在光标下方。这个方法接收的三个参数分别是要显示的 HTML 元素和光标在图像中的 x、y 坐标。其中，HTML 元素可以是一幅图像，也可以是其他元素。是图像则显示图像，是其他元素则显示渲染后的元素。
+      * types：当前保存的数据类型。这是一个类似数组的集合，以"text"这样的字符串形式保存着数据类型。
 ## 5内存和性能
 在 JavaScript 中，添加到页面上的事件处理程序数量将直接关系到页面的整体运行性能。导致这一问题的原因是多方面的。首先，每个函数都是对象，都会占用内存；内存中的对象越多，性能就越差。其次，必须事先指定所有事件处理程序而导致的 DOM 访问次数，会延迟整个页面的交互就绪时间。方案一：对“事件处理程序过多”问题的解决方案就是**事件委托**。所有用到按钮的事件（click、mousedown、mouseup、keydown、keyup 和 keypress）都适合采用事件委托技术。虽然 mouseover 和 mouseout 事件也冒泡，但要适当处理它们并不容易，而且经常需要计算元素的位置。（因为当鼠标从一个元素移到其子节点时，或者当鼠标移出该元素时，都会触发 mouseout 事件。）如果可行的话，也可以考虑为 document 对象添加一个事件处理程序。这样好处：
 
