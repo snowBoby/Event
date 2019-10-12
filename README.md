@@ -58,6 +58,7 @@ DOM中的preventDefault()方法的作用相同）
 * **手势事件**：当两个手指触摸屏幕时就会产生手势，手势通常会改变显示项的大小，或者旋转显示项。gesturestart->touchstart,gestureend->touchend
 * **表单事件**：除了支持鼠标、键盘、更改和 HTML 事件之外，所有表单字段都支持focus、blur、change
 * **拖放事件**：拖动某元素时，在目标元素（被拖动的元素）上将依次触发dragstart->drag->dragend，当某个元素被拖动到一个有效的放置目标上时，在目标元素上将依次触发dragenter->dragover->dragleave/drop
+* **离线检测事件**：navigator.onLine存在兼容性问题，，为了更好地确定网络是否可用，HTML5提供了online 和 offline俩个事件。
 
 ### 4.1UI 事件
 这个 event 对象没有任何附加信息，但在兼容 DOM 的浏览器中，event.target 属性的值会被设置为document。有两种方式：1、通过JS来指定事件处理程序；2、通过HTML在<body>元素中通过相应的特性来指定（因为在HTML中无法访问window元素）。根据“DOM2 级事件”规范，应该在 document 而非 window 上面触发 load 事件。但是，所有浏览器都在 window 上面实现了该事件，以确保向后兼容
