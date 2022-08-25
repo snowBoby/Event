@@ -104,8 +104,10 @@ DOM中的preventDefault()方法的作用相同）
 * **mouseleave**：在位于元素上方的鼠标光标移动到元素范围之外时触发。这个事件**不冒泡**；当鼠标移除被选元素才会触发，后代元素不会触发，该方法不会冒泡。
 * **mousemove**：当鼠标移入被选元素内后，任意移动一个像素点都会触发。
 * **mouseover**：在鼠标移除该元素会触发，同时在其子元素移入移除都会触发。当鼠标经过被选元素和被选元素的子元素时都会触发mouseover事件，对应mouseout事件。
-* **mouseover**：无论鼠标离开被选元素还是被选元素的子元素都会触发。
+* **mouseout**：无论鼠标离开被选元素还是被选元素的子元素都会触发。
 * **contextmenu**（h5事件）：点击非主鼠标按钮触发。可以自定义上下文菜单，可取消默认行为。
+![image](https://github.com/snowBoby/Event/blob/master/mouse%E4%BA%8B%E4%BB%B6%E5%9B%BE%E8%A7%A3.png)
+参考文章：https://segmentfault.com/a/1190000008810398
 
   #### 鼠标事件特有的事件对象属性：
 
